@@ -11,10 +11,9 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import com.example.toptracks.Fragment.FragmentAll;
+import com.example.toptracks.Fragment.toptracks.FragmentTopTracks;
 import com.example.toptracks.Fragment.FragmentFree;
 import com.example.toptracks.Fragment.FragmentPurchases;
-import com.example.toptracks.Presenter.MusicPresenter;
 import com.example.toptracks.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new FragmentAll(), "All");
+        viewPagerAdapter.addFragment(new FragmentTopTracks(), "All");
         viewPagerAdapter.addFragment(new FragmentPurchases(), "Purchases");
         viewPagerAdapter.addFragment(new FragmentFree(), "Free");
 

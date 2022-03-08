@@ -1,6 +1,7 @@
 
 package com.example.toptracks.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
@@ -10,16 +11,16 @@ public class Toptracks {
 
     @SerializedName("track")
     @Expose
-    private List<Track> track = null;
+    private ArrayList<Track> track = null;
     @SerializedName("@attr")
     @Expose
     private Attr__1 attr;
 
-    public List<Track> getTrack() {
+    public ArrayList<Track> getTrack() {
         return track;
     }
 
-    public void setTrack(List<Track> track) {
+    public void setTrack(ArrayList<Track> track) {
         this.track = track;
     }
 
