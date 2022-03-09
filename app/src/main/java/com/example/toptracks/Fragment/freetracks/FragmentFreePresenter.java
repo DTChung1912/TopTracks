@@ -2,7 +2,6 @@ package com.example.toptracks.Fragment.freetracks;
 
 import com.example.toptracks.Model.Music;
 import com.example.toptracks.base.BasePresenter;
-
 import java.util.ArrayList;
 
 public class FragmentFreePresenter extends BasePresenter<FreeIterator.FreeTrackView>

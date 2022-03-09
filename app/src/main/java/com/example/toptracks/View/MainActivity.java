@@ -6,9 +6,6 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
-import com.example.toptracks.Fragment.toptracks.FragmentTopTracks;
-import com.example.toptracks.Fragment.freetracks.FragmentFree;
-import com.example.toptracks.Fragment.purchasestracks.FragmentPurchases;
 import com.example.toptracks.R;
 import com.example.toptracks.View.viewpager.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -46,11 +43,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
     }
 
     @Override
-    public void onFailed(String msg) {
-    }
+    public void onFailed(String msg) {}
 
     @Override
-    public void onError(String msg) {
-    }
+    public void onError(String msg) {}
 }
 

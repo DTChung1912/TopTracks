@@ -14,7 +14,6 @@ public class MusicViewHolder extends RecyclerView.ViewHolder {
     ImageView musicImage;
     TextView songName, singerName, songRank, listener;
 
-
     public MusicViewHolder(@NonNull View itemView) {
         super(itemView);
         musicImage = itemView.findViewById(R.id.musicImage);

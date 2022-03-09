@@ -55,7 +55,5 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
     }
 
     @Override
-    public void onError(String msg) {
-
-    }
+    public void onError(String msg) { }
 }

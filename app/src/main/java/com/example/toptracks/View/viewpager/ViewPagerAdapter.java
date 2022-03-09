@@ -35,17 +35,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter implements ViewPagerI
         return fragments.size();
     }
 
-//    public void addFragment(Fragment fragment, String title) {
-//        fragments.add(fragment);
-//        titles.add(title);
-//    }
-
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
         return titles.get(position);
     }
-
 
     @Override
     public void onFetchSuccess(ArrayList<Fragment> fragments, ArrayList<String> titles) {
@@ -54,14 +48,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter implements ViewPagerI
     }
 
     @Override
-    public void onFailed(String msg) {
-
-    }
+    public void onFailed(String msg) {}
 
     @Override
-    public void onError(String msg) {
-
-    }
+    public void onError(String msg) {}
 }
 
 

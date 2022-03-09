@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.toptracks.Adapter.MusicAdapter;
-import com.example.toptracks.Fragment.purchasestracks.FragmentPurchasesPresenter;
-import com.example.toptracks.Fragment.toptracks.FragmentTopTracksPresenter;
 import com.example.toptracks.Model.Music;
 import com.example.toptracks.R;
 
@@ -37,11 +35,9 @@ public class FragmentFree extends Fragment implements FreeIterator.FreeTrackView
 
         presenter = new FragmentFreePresenter();
         presenter.attachView(this);
-
         musicAdapter = new MusicAdapter(this.getContext(), musicList);
         recyclerView.setAdapter(musicAdapter);
         presenter.fetchFreeTracks();
-
         return view;
     }
 
@@ -57,7 +53,5 @@ public class FragmentFree extends Fragment implements FreeIterator.FreeTrackView
     }
 
     @Override
-    public void onError(String msg) {
-
-    }
+    public void onError(String msg) {}
 }

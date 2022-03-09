@@ -1,8 +1,6 @@
 package com.example.toptracks.View.viewpager;
 
 import androidx.fragment.app.Fragment;
-
-import com.example.toptracks.Model.Music;
 import com.example.toptracks.base.MVPView;
 
 import java.util.ArrayList;

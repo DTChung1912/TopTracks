@@ -12,13 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.toptracks.Adapter.MusicAdapter;
-import com.example.toptracks.Fragment.toptracks.FragmentTopTracksPresenter;
 import com.example.toptracks.Model.Music;
 import com.example.toptracks.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class FragmentPurchases extends Fragment implements PurchasesIterator.PurchasesTrackView {
     private RecyclerView recyclerView;
@@ -37,7 +35,6 @@ public class FragmentPurchases extends Fragment implements PurchasesIterator.Pur
 
         presenter = new FragmentPurchasesPresenter();
         presenter.attachView(this);
-
         musicAdapter = new MusicAdapter(this.getContext(), musicList);
         recyclerView.setAdapter(musicAdapter);
         presenter.fetchPurchasesTracks();
@@ -57,7 +54,5 @@ public class FragmentPurchases extends Fragment implements PurchasesIterator.Pur
     }
 
     @Override
-    public void onError(String msg) {
-
-    }
+    public void onError(String msg) {}
 }
