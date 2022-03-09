@@ -16,7 +16,6 @@ public class BasePresenter<T extends MVPView> implements Presenter<T> {
 
     @Override
     public void unSubscribe() {
-
     }
 
     public T getMvpView() {

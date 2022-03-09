@@ -10,7 +10,6 @@ public interface TopTrackIterator {
 
     interface TopTrackView extends MVPView {
         void onFetchSuccess(ArrayList<Music> topTracks);
-
         void onFailed(String msg);
     }
 
