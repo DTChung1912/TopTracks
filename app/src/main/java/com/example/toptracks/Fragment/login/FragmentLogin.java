@@ -17,8 +17,8 @@ import com.example.toptracks.R;
 import com.example.toptracks.View.MainActivity;
 
 public class FragmentLogin extends Fragment implements LoginIterator.LoginView{
-    EditText userName,passWord;
-    Button login;
+    private EditText userName,passWord;
+    private Button login;
     FragmentLoginPresenter presenter;
     Intent intent;
 

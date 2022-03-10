@@ -33,6 +33,10 @@ public class FragmentLoginPresenter extends BasePresenter<LoginIterator.LoginVie
                 }
                 Token myToken = response.body();
                 String token = myToken.getToken();
+                if (token.isEmpty()){
+                    getMvpView().onFailed("Ko có data");
+                    return;
+                }
                 getMvpView().onFetchSuccess();
             }
 
@@ -41,7 +45,5 @@ public class FragmentLoginPresenter extends BasePresenter<LoginIterator.LoginVie
                 getMvpView().onFailed(t.getLocalizedMessage());
             }
         });
-
-
     }
 }
