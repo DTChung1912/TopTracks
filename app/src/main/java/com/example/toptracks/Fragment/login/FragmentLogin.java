@@ -17,10 +17,9 @@ import com.example.toptracks.R;
 import com.example.toptracks.View.MainActivity;
 
 public class FragmentLogin extends Fragment implements LoginIterator.LoginView{
-    EditText userName,passWord;
-    Button login;
-    FragmentLoginPresenter presenter;
-    Intent intent;
+    private EditText userName,passWord;
+    private Button login;
+    private FragmentLoginPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,8 +32,6 @@ public class FragmentLogin extends Fragment implements LoginIterator.LoginView{
         presenter = new FragmentLoginPresenter();
         presenter.attachView(this);
 
-        intent = new Intent(getContext(), MainActivity.class);
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +43,7 @@ public class FragmentLogin extends Fragment implements LoginIterator.LoginView{
 
     @Override
     public void onFetchSuccess() {
+        Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
     }
 
