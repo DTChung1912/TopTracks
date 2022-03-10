@@ -33,7 +33,7 @@ public class FragmentLoginPresenter extends BasePresenter<LoginIterator.LoginVie
                 }
                 Token myToken = response.body();
                 String token = myToken.getToken();
-                if (token.isEmpty()){
+                if (token.isEmpty() || myToken == null){
                     getMvpView().onFailed("Ko có data");
                     return;
                 }
