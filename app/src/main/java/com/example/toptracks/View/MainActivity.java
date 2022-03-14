@@ -1,6 +1,5 @@
 package com.example.toptracks.View;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.widget.EditText;
 import com.example.toptracks.R;
 import com.example.toptracks.View.viewpager.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
-
 
 public class MainActivity extends AppCompatActivity implements MainActivityIterator.MainView{
     EditText searchMusic;

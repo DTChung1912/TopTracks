@@ -2,6 +2,7 @@ package com.example.toptracks.Fragment.toptracks;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,39 +15,96 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.toptracks.Adapter.MusicAdapter;
 import com.example.toptracks.Model.Music;
 import com.example.toptracks.R;
+import com.example.toptracks.Scroll.RecyclerViewScrollListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopTrackView {
 
     private RecyclerView recyclerView;
     private MusicAdapter musicAdapter;
-    private List<Music> musicList = new ArrayList<>();
-
+    private ArrayList<Music> musicList = new ArrayList<>();
+    private LinearLayoutManager linearLayoutManager;
     private FragmentTopTracksPresenter presenter;
+
+    private boolean isLoading;
+    private boolean isLastPage;
+    private boolean isLoadmore;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_all, container, false);
+        View view = inflater.inflate(R.layout.fragment_toptracks, container, false);
 
         recyclerView = view.findViewById(R.id.recylerView);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(linearLayoutManager);
+
         presenter = new FragmentTopTracksPresenter();
         presenter.attachView(this);
         musicAdapter = new MusicAdapter(this.getContext(), musicList);
         recyclerView.setAdapter(musicAdapter);
         presenter.fetchTopTracks();
+
+        recyclerView.addOnScrollListener(new RecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void loadmoreItem() {
+                isLoading = true;
+                if (isLoading) {
+                    musicAdapter.isLoadmore(isLoading);
+                    musicAdapter.notifyDataSetChanged();
+                    presenter.addProgessBar();
+                }
+
+                if (isLoadmore) {
+                    presenter.fetchTopTracks();
+                    isLoadmore = false;
+                }
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+
+            @Override
+            public boolean isLastpage() {
+                return isLastPage;
+            }
+        });
         return view;
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onFetchSuccess(ArrayList<Music> topTracks) {
+        isLoading = false;
+        isLastPage = false;
+        musicList.clear();
         musicList.addAll(topTracks);
         musicAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onProgessbar() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (musicList.size() >= 50) {
+                    isLastPage = true;
+                    Toast.makeText(getContext(), "out of data", Toast.LENGTH_SHORT).show();
+                }
+                isLoading = false;
+                musicAdapter.isLoadmore(isLoading);
+                musicAdapter.notifyDataSetChanged();
+
+            }
+        }, 3000);
+        isLoadmore = true;
+
     }
 
     @Override
@@ -55,5 +113,6 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
     }
 
     @Override
-    public void onError(String msg) { }
+    public void onError(String msg) {
+    }
 }

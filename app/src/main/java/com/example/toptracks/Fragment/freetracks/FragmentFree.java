@@ -21,7 +21,7 @@ import java.util.List;
 public class FragmentFree extends Fragment implements FreeIterator.FreeTrackView {
     private RecyclerView recyclerView;
     private MusicAdapter musicAdapter;
-    private List<Music> musicList = new ArrayList<>();
+    private ArrayList<Music> musicList = new ArrayList<>();
 
     private FragmentFreePresenter presenter;
 

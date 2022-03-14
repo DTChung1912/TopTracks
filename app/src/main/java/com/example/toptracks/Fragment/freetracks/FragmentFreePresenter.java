@@ -10,10 +10,10 @@ public class FragmentFreePresenter extends BasePresenter<FreeIterator.FreeTrackV
     @Override
     public void fetchFreeTracks() {
         ArrayList<Music> musicList = new ArrayList<>();
-        if (musicList.isEmpty()) {
-            getMvpView().onFailed("Ko có data");
-            return;
-        }
+//        if (musicList.isEmpty()) {
+//            getMvpView().onFailed("Ko có data");
+//            return;
+//        }
         getMvpView().onFetchSuccess(musicList);
     }
 }
