@@ -1,8 +1,5 @@
 package com.example.toptracks.Fragment.login;
 
-
-import android.content.Intent;
-
 import com.example.toptracks.base.MVPView;
 
 public interface LoginIterator {

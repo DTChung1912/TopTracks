@@ -27,7 +27,7 @@ public class FragmentLogin extends Fragment implements LoginIterator.LoginView{
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         userName = view.findViewById(R.id.userName);
         passWord = view.findViewById(R.id.passWord);
-        login  = view.findViewById(R.id.login);
+        login = view.findViewById(R.id.login);
 
         presenter = new FragmentLoginPresenter();
         presenter.attachView(this);

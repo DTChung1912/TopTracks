@@ -12,20 +12,17 @@ import java.util.ArrayList;
 public class ViewPagerPresenter extends BasePresenter<ViewPagerIterator.ViewPagerView>
         implements ViewPagerIterator.ViewPagerPresenter{
 
-    private ArrayList<Fragment> fragments;
-    private ArrayList<String> titles;
+    private ArrayList<Fragment> fragments = new ArrayList<>();
+    private ArrayList<String> titles = new ArrayList<>();
 
     @Override
     public void fetchViewPager() {
 
-        fragments = new ArrayList<>();
-        titles = new ArrayList<>();
-
         fragments.add(new FragmentTopTracks());
         fragments.add(new FragmentPurchases());
         fragments.add(new FragmentFree());
-
-        titles.add("All");
+        
+        titles.add("TopTracks");
         titles.add("Purchases");
         titles.add("Free");
 
