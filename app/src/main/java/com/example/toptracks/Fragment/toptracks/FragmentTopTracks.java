@@ -33,8 +33,7 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
 
     private boolean isLoading;
     private boolean isLastPage;
-    private boolean isLoadmore;
-    private boolean isSwipeRefesh = false;
+    int limit = 5;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +51,7 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
         presenter.attachView(this);
         musicAdapter = new MusicAdapter(this.getContext(), musicList);
         recyclerView.setAdapter(musicAdapter);
-        presenter.fetchTopTracks(isSwipeRefesh);
+        presenter.fetchTopTracks(limit);
 
         recyclerView.addOnScrollListener(new RecyclerViewScrollListener(linearLayoutManager) {
             @Override
@@ -63,11 +62,7 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
                     musicAdapter.notifyDataSetChanged();
                     presenter.addProgessBar();
                 }
-
-                if (isLoadmore) {
-                    presenter.fetchTopTracks(isSwipeRefesh);
-                    isLoadmore = false;
-                }
+                presenter.fetchTopTracks(limit);
             }
 
             @Override
@@ -84,10 +79,9 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.addSwipeRefesh();
-                presenter.fetchTopTracks(isSwipeRefesh);
-                isSwipeRefesh = false;
-                swipeRefreshLayout.setRefreshing(isSwipeRefesh);
+                presenter.RefreshTopTracks();
+                presenter.fetchTopTracks(limit);
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
         return view;
@@ -116,18 +110,16 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
                 isLoading = false;
                 musicAdapter.isLoadmore(isLoading);
                 musicAdapter.notifyDataSetChanged();
-
             }
         }, 3000);
-        isLoadmore = true;
-
+        limit += 5;
     }
 
     @Override
-    public void onSwipeRefesh() {
+    public void onSwipeRefresh() {
         musicList.clear();
         musicAdapter.notifyDataSetChanged();
-        isSwipeRefesh = true;
+        limit = 5;
     }
 
     @Override

@@ -9,14 +9,19 @@ public interface TopTrackIterator {
 
     interface TopTrackView extends MVPView {
         void onFetchSuccess(ArrayList<Music> topTracks);
+
         void onProgessbar();
-        void onSwipeRefesh();
+
+        void onSwipeRefresh();
+
         void onFailed(String msg);
     }
 
     interface TopTrackPresenter {
-        void fetchTopTracks(boolean isSwipeRefesh);
+        void fetchTopTracks(int limit);
+
         void addProgessBar();
-        void addSwipeRefesh();
+
+        void RefreshTopTracks();
     }
 }

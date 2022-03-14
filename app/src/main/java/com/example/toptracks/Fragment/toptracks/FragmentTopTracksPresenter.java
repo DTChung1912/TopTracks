@@ -21,22 +21,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentTopTracksPresenter extends BasePresenter<TopTrackIterator.TopTrackView> implements TopTrackIterator.TopTrackPresenter {
-    String api_key ="4bae3a6d607a824a4eb8dc9455402d76";
-    int limit = 0;
+    String api_key = "4bae3a6d607a824a4eb8dc9455402d76";
+
     @Override
-    public void fetchTopTracks(boolean isSwipeRefesh) {
+    public void fetchTopTracks(int limit) {
         ArrayList<Music> musicList = new ArrayList<>();
         MusicAPI musicAPI = APIClient.getAPIClient().create(MusicAPI.class);
-        Log.d("limit", "limit: "+limit);
-        if (isSwipeRefesh){
-            limit = 5;
-        } else {
-            limit += 5;
-        }
-        if (limit >= 50){
+        Log.d("limit", "limit: " + limit);
+
+        if (limit >= 50) {
             limit = 50;
         }
-        Call<Example> exampleCall = musicAPI.getTrack(api_key,limit);
+        Call<Example> exampleCall = musicAPI.getTrack(api_key, limit);
         exampleCall.enqueue(new Callback<Example>() {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
@@ -52,12 +48,12 @@ public class FragmentTopTracksPresenter extends BasePresenter<TopTrackIterator.T
                 if (toptracks.getTrack().isEmpty() || toptracks.getTrack() == null) {
                     return;
                 }
-                for (int i = 0; i < toptracks.getTrack().size() ; i++){
+                for (int i = 0; i < toptracks.getTrack().size(); i++) {
                     Track track = toptracks.getTrack().get(i);
                     Attr attr = track.getAttr();
                     Artist artist = track.getArtist();
                     Image image = track.getImage().get(3);
-                    Music music = new Music(track.getName(),artist.getName(),attr.getRank(),track.getListeners(),image.getText());
+                    Music music = new Music(track.getName(), artist.getName(), attr.getRank(), track.getListeners(), image.getText());
                     musicList.add(music);
                 }
                 getMvpView().onFetchSuccess(musicList);
@@ -70,12 +66,8 @@ public class FragmentTopTracksPresenter extends BasePresenter<TopTrackIterator.T
         });
     }
 
-    public void addProgessBar(){
-        getMvpView().onProgessbar();
-    }
+    public void addProgessBar() { getMvpView().onProgessbar(); }
 
     @Override
-    public void addSwipeRefesh() {
-        getMvpView().onSwipeRefesh();
-    }
+    public void RefreshTopTracks() { getMvpView().onSwipeRefresh(); }
 }
