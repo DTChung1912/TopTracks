@@ -21,7 +21,7 @@ import java.util.List;
 public class FragmentPurchases extends Fragment implements PurchasesIterator.PurchasesTrackView {
     private RecyclerView recyclerView;
     private MusicAdapter musicAdapter;
-    private List<Music> musicList = new ArrayList<>();
+    private ArrayList<Music> musicList = new ArrayList<>();
 
     private FragmentPurchasesPresenter presenter;
 
@@ -54,5 +54,6 @@ public class FragmentPurchases extends Fragment implements PurchasesIterator.Pur
     }
 
     @Override
-    public void onError(String msg) {}
+    public void onError(String msg) {
+    }
 }

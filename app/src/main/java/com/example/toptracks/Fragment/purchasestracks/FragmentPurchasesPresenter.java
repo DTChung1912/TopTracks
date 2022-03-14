@@ -9,10 +9,10 @@ public class FragmentPurchasesPresenter extends BasePresenter<PurchasesIterator.
     @Override
     public void fetchPurchasesTracks() {
         ArrayList<Music> musicList = new ArrayList<>();
-        if (musicList.isEmpty()) {
-            getMvpView().onFailed("Ko có data");
-            return;
-        }
+//        if (musicList.isEmpty()) {
+//            getMvpView().onFailed("Ko có data");
+//            return;
+//        }
         getMvpView().onFetchSuccess(musicList);
     }
 }

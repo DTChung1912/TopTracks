@@ -30,7 +30,6 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
     private boolean isLoading;
     private boolean isLastPage;
     private boolean isLoadmore;
-    private Handler handler = new Handler();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,11 +52,11 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
             @Override
             public void loadmoreItem() {
                 isLoading = true;
-                if (isLoading = true){
+                if (isLoading = true) {
                     presenter.addProgessBar();
                 }
 
-                if (isLoadmore){
+                if (isLoadmore) {
                     presenter.fetchTopTracks();
                     isLoadmore = false;
                 }
@@ -88,11 +87,12 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
 
     @Override
     public void onProgessbar() {
+        Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
                 musicList.add(null);
-                musicAdapter.notifyItemInserted(musicList.size()-1);
+                musicAdapter.notifyItemInserted(musicList.size() - 1);
             }
         });
 
@@ -104,7 +104,7 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
                 musicAdapter.notifyItemRemoved(listSize);
 
                 musicAdapter.notifyDataSetChanged();
-                if (musicList.size() >= 50){
+                if (musicList.size() >= 50) {
                     isLastPage = true;
                     Toast.makeText(getContext(), "out of data", Toast.LENGTH_SHORT).show();
                 }
@@ -121,5 +121,6 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
     }
 
     @Override
-    public void onError(String msg) { }
+    public void onError(String msg) {
+    }
 }

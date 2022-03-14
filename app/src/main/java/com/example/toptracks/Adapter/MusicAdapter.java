@@ -29,25 +29,25 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicViewHolder> {
     @NonNull
     @Override
     public MusicViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == VIEW_TYPE_ITEM){
-            View view = LayoutInflater.from(myContext).inflate(R.layout.all_item, parent, false);
-            return new MusicViewHolder(view);
-        }else {
-            View view = LayoutInflater.from(myContext).inflate(R.layout.load_view, parent, false);
-            return new MusicViewHolder(view);
+        View view;
+        if (viewType == VIEW_TYPE_ITEM) {
+            view = LayoutInflater.from(myContext).inflate(R.layout.all_item, parent, false);
+        } else {
+            view = LayoutInflater.from(myContext).inflate(R.layout.load_view, parent, false);
         }
+        return new MusicViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MusicViewHolder holder, int position) {
-        if (getItemViewType(position) == VIEW_TYPE_ITEM){
+        if (getItemViewType(position) == VIEW_TYPE_ITEM) {
             final Music music = musicList.get(position);
             holder.songName.setText(music.getSongName());
             holder.singerName.setText(music.getSingerName());
             holder.songRank.setText("Rank: " + music.getSongRank());
             holder.listener.setText(music.getListener());
             Glide.with(myContext).load(music.getMusicImage()).into(holder.musicImage);
-        }else {
+        } else {
             holder.loadmore.setVisibility(View.VISIBLE);
         }
     }
