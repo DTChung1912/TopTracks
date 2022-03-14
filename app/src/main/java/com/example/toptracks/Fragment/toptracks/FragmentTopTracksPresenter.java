@@ -24,11 +24,15 @@ public class FragmentTopTracksPresenter extends BasePresenter<TopTrackIterator.T
     String api_key ="4bae3a6d607a824a4eb8dc9455402d76";
     int limit = 0;
     @Override
-    public void fetchTopTracks() {
+    public void fetchTopTracks(boolean isSwipeRefesh) {
         ArrayList<Music> musicList = new ArrayList<>();
         MusicAPI musicAPI = APIClient.getAPIClient().create(MusicAPI.class);
         Log.d("limit", "limit: "+limit);
-        limit += 5;
+        if (isSwipeRefesh){
+            limit = 5;
+        } else {
+            limit += 5;
+        }
         if (limit >= 50){
             limit = 50;
         }
@@ -68,5 +72,10 @@ public class FragmentTopTracksPresenter extends BasePresenter<TopTrackIterator.T
 
     public void addProgessBar(){
         getMvpView().onProgessbar();
+    }
+
+    @Override
+    public void addSwipeRefesh() {
+        getMvpView().onSwipeRefesh();
     }
 }

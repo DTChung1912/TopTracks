@@ -3,6 +3,7 @@ package com.example.toptracks.Fragment.toptracks;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +12,19 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.toptracks.Adapter.MusicAdapter;
 import com.example.toptracks.Model.Music;
 import com.example.toptracks.R;
 import com.example.toptracks.Scroll.RecyclerViewScrollListener;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopTrackView {
-
+    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private MusicAdapter musicAdapter;
     private ArrayList<Music> musicList = new ArrayList<>();
@@ -30,12 +34,14 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
     private boolean isLoading;
     private boolean isLastPage;
     private boolean isLoadmore;
+    private boolean isSwipeRefesh = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_toptracks, container, false);
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         recyclerView = view.findViewById(R.id.recylerView);
         linearLayoutManager = new LinearLayoutManager(getContext());
 
@@ -46,7 +52,7 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
         presenter.attachView(this);
         musicAdapter = new MusicAdapter(this.getContext(), musicList);
         recyclerView.setAdapter(musicAdapter);
-        presenter.fetchTopTracks();
+        presenter.fetchTopTracks(isSwipeRefesh);
 
         recyclerView.addOnScrollListener(new RecyclerViewScrollListener(linearLayoutManager) {
             @Override
@@ -59,7 +65,7 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
                 }
 
                 if (isLoadmore) {
-                    presenter.fetchTopTracks();
+                    presenter.fetchTopTracks(isSwipeRefesh);
                     isLoadmore = false;
                 }
             }
@@ -72,6 +78,16 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
             @Override
             public boolean isLastpage() {
                 return isLastPage;
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.addSwipeRefesh();
+                presenter.fetchTopTracks(isSwipeRefesh);
+                isSwipeRefesh = false;
+                swipeRefreshLayout.setRefreshing(isSwipeRefesh);
             }
         });
         return view;
@@ -105,6 +121,13 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
         }, 3000);
         isLoadmore = true;
 
+    }
+
+    @Override
+    public void onSwipeRefesh() {
+        musicList.clear();
+        musicAdapter.notifyDataSetChanged();
+        isSwipeRefesh = true;
     }
 
     @Override
