@@ -52,7 +52,7 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
             @Override
             public void loadmoreItem() {
                 isLoading = true;
-                if (isLoading = true) {
+                if (isLoading) {
                     musicAdapter.isLoadmore(isLoading);
                     musicAdapter.notifyDataSetChanged();
                     presenter.addProgessBar();
@@ -100,8 +100,9 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
                 isLoading = false;
                 musicAdapter.isLoadmore(isLoading);
                 musicAdapter.notifyDataSetChanged();
+
             }
-        },3000);
+        }, 3000);
         isLoadmore = true;
 
     }

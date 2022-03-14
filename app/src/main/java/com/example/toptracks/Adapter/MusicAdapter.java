@@ -18,7 +18,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicViewHolder> {
 
     private Context myContext;
     private List<Music> musicList;
-    private boolean isLoadmore ;
+    private boolean isLoadmore;
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
 
@@ -55,9 +55,9 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (musicList == null){
+        if (musicList == null) {
             return 0;
-        } else if (isLoadmore == true){
+        } else if (isLoadmore) {
             return musicList.size() + 1;
         } else {
             return musicList.size();
@@ -66,7 +66,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return (isLoadmore == true && position == musicList.size()) ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+        return (isLoadmore && position == musicList.size()) ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
     public void isLoadmore(boolean isLoadmore) {

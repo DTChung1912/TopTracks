@@ -1,5 +1,7 @@
 package com.example.toptracks.View.viewpager;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -52,6 +54,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter implements ViewPagerI
 
     @Override
     public void onError(String msg) {}
+
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+//        super.destroyItem(container, position, object);
+    }
 }
 
 
