@@ -29,9 +29,6 @@ public class FragmentTopTracksPresenter extends BasePresenter<TopTrackIterator.T
         MusicAPI musicAPI = APIClient.getAPIClient().create(MusicAPI.class);
         Log.d("limit", "limit: " + limit);
 
-        if (limit >= 50) {
-            limit = 50;
-        }
         Call<Example> exampleCall = musicAPI.getTrack(api_key, limit);
         exampleCall.enqueue(new Callback<Example>() {
             @Override
@@ -40,12 +37,15 @@ public class FragmentTopTracksPresenter extends BasePresenter<TopTrackIterator.T
                     getMvpView().onFailed(response.message());
                     return;
                 }
-
                 Example myData = response.body();
 
                 Toptracks toptracks = myData.getToptracks();
 
                 if (toptracks.getTrack().isEmpty() || toptracks.getTrack() == null) {
+                    return;
+                }
+                if (toptracks.getTrack().size() >= 55){
+                    getMvpView().onFailed("out of data");
                     return;
                 }
                 for (int i = 0; i < toptracks.getTrack().size(); i++) {

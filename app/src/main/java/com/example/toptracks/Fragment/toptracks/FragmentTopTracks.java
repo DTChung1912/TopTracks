@@ -106,13 +106,15 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
                 if (musicList.size() >= 50) {
                     isLastPage = true;
                     Toast.makeText(getContext(), "out of data", Toast.LENGTH_SHORT).show();
+                }else {
+                    isLoading = false;
+                    musicAdapter.isLoadmore(isLoading);
+                    musicAdapter.notifyDataSetChanged();
+                    limit += 5;
                 }
-                isLoading = false;
-                musicAdapter.isLoadmore(isLoading);
-                musicAdapter.notifyDataSetChanged();
+
             }
         }, 3000);
-        limit += 5;
     }
 
     @Override
