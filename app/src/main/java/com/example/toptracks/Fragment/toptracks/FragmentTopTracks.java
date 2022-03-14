@@ -53,6 +53,8 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
             public void loadmoreItem() {
                 isLoading = true;
                 if (isLoading = true) {
+                    musicAdapter.isLoadmore(isLoading);
+                    musicAdapter.notifyDataSetChanged();
                     presenter.addProgessBar();
                 }
 
@@ -88,31 +90,20 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
     @Override
     public void onProgessbar() {
         Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                musicList.add(null);
-                musicAdapter.notifyItemInserted(musicList.size() - 1);
-            }
-        });
-
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                musicList.remove(null);
-                int listSize = musicList.size();
-                musicAdapter.notifyItemRemoved(listSize);
-
-                musicAdapter.notifyDataSetChanged();
                 if (musicList.size() >= 50) {
                     isLastPage = true;
                     Toast.makeText(getContext(), "out of data", Toast.LENGTH_SHORT).show();
                 }
-
                 isLoading = false;
-                isLoadmore = true;
+                musicAdapter.isLoadmore(isLoading);
+                musicAdapter.notifyDataSetChanged();
             }
-        }, 2000);
+        },3000);
+        isLoadmore = true;
+
     }
 
     @Override
