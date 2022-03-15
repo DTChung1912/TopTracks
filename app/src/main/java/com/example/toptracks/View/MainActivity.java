@@ -2,20 +2,31 @@ package com.example.toptracks.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import com.example.toptracks.Fragment.register.FragmentRegister;
 import com.example.toptracks.R;
 import com.example.toptracks.View.viewpager.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity implements MainActivityIterator.MainView{
-    EditText searchMusic;
-    TabLayout tabLayout;
-    ViewPager viewPager;
-    ViewPagerAdapter viewPagerAdapter;
+public class MainActivity extends AppCompatActivity implements MainActivityIterator.MainView {
+    private EditText searchMusic;
+    private TextView currentUser;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
-    MainActivityPresenter presenter;
+    private ViewPagerAdapter viewPagerAdapter;
+    private MainActivityPresenter presenter;
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
         setContentView(R.layout.activity_main);
 
         searchMusic = findViewById(R.id.searchMusic);
+        currentUser = findViewById(R.id.currentUser);
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
 
@@ -37,13 +49,40 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
 
     @Override
     public void onFetchSuccess(String msg) {
-        Log.d(msg,"Succsess");
+        Log.d(msg, "Succsess");
+        sharedPreferences = getSharedPreferences("PREFS", MODE_PRIVATE);
+        String userName = sharedPreferences.getString("currentuser", null);
+        if (userName != null) {
+            currentUser.setText(userName);
+        }
     }
 
     @Override
-    public void onFailed(String msg) {}
+    public void onFailed(String msg) {
+    }
 
     @Override
-    public void onError(String msg) {}
+    public void onError(String msg) {
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.signUp:
+                FragmentRegister fragmentRegister = new FragmentRegister();
+                fragmentRegister.show(getSupportFragmentManager(), fragmentRegister.getTag());
+                return true;
+            case R.id.logout:
+                startActivity(new Intent(MainActivity.this, StartActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                return true;
+        }
+        return false;
+    }
 }
 
