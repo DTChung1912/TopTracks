@@ -3,7 +3,6 @@ package com.example.toptracks.Fragment.toptracks;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,6 @@ import com.example.toptracks.Adapter.MusicAdapter;
 import com.example.toptracks.Model.Music;
 import com.example.toptracks.R;
 import com.example.toptracks.Scroll.RecyclerViewScrollListener;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -106,13 +103,13 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
                 if (musicList.size() >= 50) {
                     isLastPage = true;
                     Toast.makeText(getContext(), "out of data", Toast.LENGTH_SHORT).show();
-                }else {
+                    return;
+                } else {
                     isLoading = false;
                     musicAdapter.isLoadmore(isLoading);
                     musicAdapter.notifyDataSetChanged();
                     limit += 5;
                 }
-
             }
         }, 3000);
     }

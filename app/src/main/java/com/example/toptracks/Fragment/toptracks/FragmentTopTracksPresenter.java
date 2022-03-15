@@ -1,7 +1,6 @@
 package com.example.toptracks.Fragment.toptracks;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.toptracks.Model.Artist;
 import com.example.toptracks.Model.Attr;
@@ -27,8 +26,6 @@ public class FragmentTopTracksPresenter extends BasePresenter<TopTrackIterator.T
     public void fetchTopTracks(int limit) {
         ArrayList<Music> musicList = new ArrayList<>();
         MusicAPI musicAPI = APIClient.getAPIClient().create(MusicAPI.class);
-        Log.d("limit", "limit: " + limit);
-
         Call<Example> exampleCall = musicAPI.getTrack(api_key, limit);
         exampleCall.enqueue(new Callback<Example>() {
             @Override
@@ -42,10 +39,6 @@ public class FragmentTopTracksPresenter extends BasePresenter<TopTrackIterator.T
                 Toptracks toptracks = myData.getToptracks();
 
                 if (toptracks.getTrack().isEmpty() || toptracks.getTrack() == null) {
-                    return;
-                }
-                if (toptracks.getTrack().size() >= 55){
-                    getMvpView().onFailed("out of data");
                     return;
                 }
                 for (int i = 0; i < toptracks.getTrack().size(); i++) {
@@ -66,8 +59,12 @@ public class FragmentTopTracksPresenter extends BasePresenter<TopTrackIterator.T
         });
     }
 
-    public void addProgessBar() { getMvpView().onProgessbar(); }
+    public void addProgessBar() {
+        getMvpView().onProgessbar();
+    }
 
     @Override
-    public void RefreshTopTracks() { getMvpView().onSwipeRefresh(); }
+    public void RefreshTopTracks() {
+        getMvpView().onSwipeRefresh();
+    }
 }
