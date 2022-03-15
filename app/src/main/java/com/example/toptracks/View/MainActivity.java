@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.toptracks.Fragment.register.FragmentRegister;
 import com.example.toptracks.R;
 import com.example.toptracks.View.viewpager.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -74,11 +73,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.signUp:
-                FragmentRegister fragmentRegister = new FragmentRegister();
-                fragmentRegister.show(getSupportFragmentManager(), fragmentRegister.getTag());
-                return true;
             case R.id.logout:
+                sharedPreferences.edit().remove("currentuser").commit();
                 startActivity(new Intent(MainActivity.this, StartActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return true;
         }

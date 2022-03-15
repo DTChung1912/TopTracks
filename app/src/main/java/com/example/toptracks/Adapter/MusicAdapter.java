@@ -15,16 +15,17 @@ import com.example.toptracks.R;
 import java.util.List;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicViewHolder> {
-
+    private OnItemClick onItemClick;
     private Context myContext;
     private List<Music> musicList;
     private boolean isLoadmore;
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
 
-    public MusicAdapter(Context myContext, List<Music> musicList) {
+    public MusicAdapter(Context myContext, List<Music> musicList, OnItemClick onItemClick) {
         this.myContext = myContext;
         this.musicList = musicList;
+        this.onItemClick = onItemClick;
     }
 
     @NonNull
@@ -48,6 +49,12 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicViewHolder> {
             holder.songRank.setText("Rank: " + music.getSongRank());
             holder.listener.setText(music.getListener());
             Glide.with(myContext).load(music.getMusicImage()).into(holder.musicImage);
+            holder.musicImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClick.onItemClicked();
+                }
+            });
         } else {
             holder.loadmore.setVisibility(View.VISIBLE);
         }

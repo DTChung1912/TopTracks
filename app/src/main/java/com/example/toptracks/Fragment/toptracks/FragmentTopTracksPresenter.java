@@ -1,7 +1,5 @@
 package com.example.toptracks.Fragment.toptracks;
 
-import android.util.Log;
-
 import com.example.toptracks.Model.Artist;
 import com.example.toptracks.Model.Attr;
 import com.example.toptracks.Model.Example;

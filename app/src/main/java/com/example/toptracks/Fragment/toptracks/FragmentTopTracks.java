@@ -1,6 +1,8 @@
 package com.example.toptracks.Fragment.toptracks;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.toptracks.Adapter.MusicAdapter;
+import com.example.toptracks.Fragment.register.OnRegister;
+import com.example.toptracks.Fragment.register.RegisterBottomSheetDialogFragment;
 import com.example.toptracks.Model.Music;
 import com.example.toptracks.R;
 import com.example.toptracks.Scroll.RecyclerViewScrollListener;
@@ -46,7 +50,17 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
 
         presenter = new FragmentTopTracksPresenter();
         presenter.attachView(this);
-        musicAdapter = new MusicAdapter(this.getContext(), musicList);
+        musicAdapter = new MusicAdapter(this.getContext(), musicList, () -> {
+            new RegisterBottomSheetDialogFragment(new OnRegister() {
+                @Override
+                public void onRegistered(String userName) {
+                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
+                    editor.putString("currentuser", userName);
+                    editor.apply();
+                }
+            }).show(getActivity().getSupportFragmentManager(), null);
+        });
+
         recyclerView.setAdapter(musicAdapter);
         presenter.fetchTopTracks(limit);
 

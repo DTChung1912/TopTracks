@@ -20,9 +20,6 @@ import java.util.List;
 
 public class FragmentPurchases extends Fragment implements PurchasesIterator.PurchasesTrackView {
     private RecyclerView recyclerView;
-    private MusicAdapter musicAdapter;
-    private ArrayList<Music> musicList = new ArrayList<>();
-
     private FragmentPurchasesPresenter presenter;
 
     @Override
@@ -35,17 +32,13 @@ public class FragmentPurchases extends Fragment implements PurchasesIterator.Pur
 
         presenter = new FragmentPurchasesPresenter();
         presenter.attachView(this);
-        musicAdapter = new MusicAdapter(this.getContext(), musicList);
-        recyclerView.setAdapter(musicAdapter);
         presenter.fetchPurchasesTracks();
-
         return view;
     }
 
     @Override
     public void onFetchSuccess(ArrayList<Music> purchasesTracks) {
-        musicList.addAll(purchasesTracks);
-        musicAdapter.notifyDataSetChanged();
+
     }
 
     @Override

@@ -11,18 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.toptracks.Adapter.MusicAdapter;
+import com.example.toptracks.Fragment.purchasestracks.FragmentPurchasesPresenter;
 import com.example.toptracks.Model.Music;
 import com.example.toptracks.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FragmentFree extends Fragment implements FreeIterator.FreeTrackView {
     private RecyclerView recyclerView;
-    private MusicAdapter musicAdapter;
-    private ArrayList<Music> musicList = new ArrayList<>();
-
     private FragmentFreePresenter presenter;
 
     @Override
@@ -35,16 +31,12 @@ public class FragmentFree extends Fragment implements FreeIterator.FreeTrackView
 
         presenter = new FragmentFreePresenter();
         presenter.attachView(this);
-        musicAdapter = new MusicAdapter(this.getContext(), musicList);
-        recyclerView.setAdapter(musicAdapter);
         presenter.fetchFreeTracks();
         return view;
     }
 
     @Override
     public void onFetchSuccess(ArrayList<Music> freeTracks) {
-        musicList.addAll(freeTracks);
-        musicAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -53,5 +45,6 @@ public class FragmentFree extends Fragment implements FreeIterator.FreeTrackView
     }
 
     @Override
-    public void onError(String msg) {}
+    public void onError(String msg) {
+    }
 }

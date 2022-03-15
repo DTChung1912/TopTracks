@@ -5,6 +5,7 @@ import com.example.toptracks.base.MVPView;
 public interface LoginIterator {
     interface LoginView extends MVPView {
         void onFetchSuccess();
+
         void onFailed(String msg);
     }
 
