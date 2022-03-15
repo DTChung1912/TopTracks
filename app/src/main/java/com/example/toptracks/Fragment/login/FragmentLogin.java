@@ -12,12 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 import com.example.toptracks.R;
 import com.example.toptracks.View.MainActivity;
 
 public class FragmentLogin extends Fragment implements LoginIterator.LoginView{
-    private EditText userName,passWord;
+    private EditText edtUserName,edtPassword;
     private Button login;
     private FragmentLoginPresenter presenter;
 
@@ -25,8 +24,8 @@ public class FragmentLogin extends Fragment implements LoginIterator.LoginView{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        userName = view.findViewById(R.id.userName);
-        passWord = view.findViewById(R.id.passWord);
+        edtPassword = view.findViewById(R.id.edtUserName);
+        edtPassword = view.findViewById(R.id.edtPassword);
         login = view.findViewById(R.id.login);
 
         presenter = new FragmentLoginPresenter();
@@ -54,6 +53,5 @@ public class FragmentLogin extends Fragment implements LoginIterator.LoginView{
 
     @Override
     public void onError(String msg) {
-
     }
 }

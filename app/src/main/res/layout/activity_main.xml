@@ -13,10 +13,22 @@
         android:layout_height="@dimen/dimen_50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/ic_baseline_play_circle_filled_24"
-         />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/currentUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_30dp"
+        android:layout_marginEnd="@dimen/dimen_30dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -39,9 +51,9 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/custom_search"
         android:drawableLeft="@drawable/ic_baseline_search_24"
-        android:paddingLeft="10dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:paddingLeft="10dp"
         android:selectAllOnFocus="false"
         android:singleLine="false"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,14 +72,13 @@
         app:layout_constraintTop_toBottomOf="@+id/searchMusic"
         app:tabIndicator="@null"
         app:tabSelectedTextColor="@color/black"
-        app:tabTextColor="#F80606">
-    </com.google.android.material.tabs.TabLayout>
+        app:tabTextColor="#F80606"></com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
         android:layout_height="400dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
