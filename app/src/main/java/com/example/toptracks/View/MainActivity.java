@@ -1,5 +1,7 @@
 package com.example.toptracks.View;
 
+import static com.example.toptracks.Model.Constants.KEY_CURRENT_USER;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
     public void onFetchSuccess(String msg) {
         Log.d(msg, "Succsess");
         sharedPreferences = getSharedPreferences("PREFS", MODE_PRIVATE);
-        String userName = sharedPreferences.getString("currentuser", null);
+        String userName = sharedPreferences.getString(KEY_CURRENT_USER, null);
         if (userName != null) {
             currentUser.setText(userName);
         }
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
-                sharedPreferences.edit().remove("currentuser").commit();
+                sharedPreferences.edit().remove(KEY_CURRENT_USER).commit();
                 startActivity(new Intent(MainActivity.this, StartActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return true;
         }

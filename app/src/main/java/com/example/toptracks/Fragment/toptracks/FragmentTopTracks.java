@@ -1,5 +1,7 @@
 package com.example.toptracks.Fragment.toptracks;
 
+import static com.example.toptracks.Model.Constants.KEY_CURRENT_USER;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -55,7 +57,7 @@ public class FragmentTopTracks extends Fragment implements TopTrackIterator.TopT
                 @Override
                 public void onRegistered(String userName) {
                     SharedPreferences.Editor editor = getActivity().getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
-                    editor.putString("currentuser", userName);
+                    editor.putString(KEY_CURRENT_USER, userName);
                     editor.apply();
                 }
             }).show(getActivity().getSupportFragmentManager(), null);
