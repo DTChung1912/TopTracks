@@ -3,15 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/background.xml" value="0.152" />
+        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/custom_profile.xml" value="0.152" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/custom_register.xml" value="0.2703125" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/custom_search.xml" value="0.2703125" />
-        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/custom_tablayout.xml" value="0.2703125" />
+        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/custom_tablayout.xml" value="0.2" />
+        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.152" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/ic_baseline_play_circle.xml" value="0.2703125" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/ic_baseline_search.xml" value="0.2703125" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/ic_music.xml" value="0.152" />
+        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/drawable/ic_settings.xml" value="0.152" />
+        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/activity_camera.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/activity_login_and_register.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/activity_start.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/all_item.xml" value="0.264" />
@@ -21,10 +27,12 @@
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/fragment_purchases.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/fragment_register.xml" value="0.264" />
+        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/fragment_setting.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/fragment_toptracks.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/item_loadmore.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/layout/load_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/menu/navigation.xml" value="0.2" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2703125" />
         <entry key="..\:/Users/TT/AndroidStudioProjects/TopTracks/app/src/main/res/mipmap-anydpi-v26/play.xml" value="0.26979166666666665" />
       </map>

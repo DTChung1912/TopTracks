@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import com.example.toptracks.Model.Constants.*;
+
 import com.example.toptracks.R;
 
 public class StartActivity extends AppCompatActivity {

@@ -2,32 +2,44 @@ package com.example.toptracks.View;
 
 import static com.example.toptracks.Model.Constants.KEY_CURRENT_USER;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.toptracks.Fragment.freetracks.FragmentFree;
+import com.example.toptracks.Fragment.purchasestracks.FragmentPurchases;
+import com.example.toptracks.Fragment.setting.FragmentSetting;
+import com.example.toptracks.Fragment.toptracks.FragmentTopTracks;
 import com.example.toptracks.R;
-import com.example.toptracks.View.viewpager.ViewPagerAdapter;
-import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements MainActivityIterator.MainView {
     private EditText searchMusic;
     private TextView currentUser;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private ImageView profileImage;
+    private BottomNavigationView bottomNavigationView;
 
-    private ViewPagerAdapter viewPagerAdapter;
     private MainActivityPresenter presenter;
 
     private SharedPreferences sharedPreferences;
+    private int REQUEST_CODE = 1;
+    private Uri uri;
+    private String imagePath = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,21 +48,83 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
 
         searchMusic = findViewById(R.id.searchMusic);
         currentUser = findViewById(R.id.currentUser);
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewPager);
+        profileImage = findViewById(R.id.profileImage);
+        bottomNavigationView = findViewById(R.id.navigation_bar);
+
+        ActivityCompat.requestPermissions(MainActivity.this
+                , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE);
+        ActivityCompat.requestPermissions(MainActivity.this
+                , new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE);
 
         presenter = new MainActivityPresenter();
         presenter.attachView(this);
         presenter.fetchMain();
 
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment fragment = null;
+                switch (item.getItemId()) {
+                    case R.id.navigation_toptracks:
+                        fragment = new FragmentTopTracks();
+                        loadFragment(fragment);
+                        return true;
+                    case R.id.navigation_purchases:
+                        fragment = new FragmentPurchases();
+                        loadFragment(fragment);
+                        return true;
+                    case R.id.navigation_free:
+                        fragment = new FragmentFree();
+                        loadFragment(fragment);
+                        return true;
+                    case R.id.navigation_setting:
+                        fragment = new FragmentSetting();
+                        loadFragment(fragment);
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        Intent intent = getIntent();
+
+        byte[] dataPicture = intent.getByteArrayExtra("cameraPicture");
+        if (dataPicture != null) {
+            bottomNavigationView.setSelectedItemId(R.id.navigation_setting);
+            FragmentSetting fragmentSetting = new FragmentSetting();
+            Bundle bundle = new Bundle();
+            bundle.putByteArray("pictureData", dataPicture);
+            fragmentSetting.setArguments(bundle);
+            loadFragment(fragmentSetting);
+        } else {
+            imagePath = getIntent().getStringExtra("chooserPicture");
+            if (imagePath != null) {
+                bottomNavigationView.setSelectedItemId(R.id.navigation_setting);
+                FragmentSetting fragmentSetting = new FragmentSetting();
+                Bundle bundle = new Bundle();
+                bundle.putString("pictureData", imagePath);
+                fragmentSetting.setArguments(bundle);
+                loadFragment(fragmentSetting);
+            } else {
+                loadFragment(new FragmentTopTracks());
+            }
+        }
+
+        byte[] dataProfile = intent.getByteArrayExtra("imageData");
+        if (dataProfile != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(dataProfile, 0, dataProfile.length);
+            profileImage.setImageBitmap(bitmap);
+        } else {
+            String imagePathProfile = getIntent().getStringExtra("imageData");
+            if (imagePathProfile != null) {
+                Uri uri = Uri.parse(imagePathProfile);
+                profileImage.setImageURI(uri);
+            }
+        }
     }
 
     @Override
-    public void onFetchSuccess(String msg) {
-        Log.d(msg, "Succsess");
+    public void onFetchSuccess() {
         sharedPreferences = getSharedPreferences("PREFS", MODE_PRIVATE);
         String userName = sharedPreferences.getString(KEY_CURRENT_USER, null);
         if (userName != null) {
@@ -82,5 +156,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
         }
         return false;
     }
-}
 
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+}

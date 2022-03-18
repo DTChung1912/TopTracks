@@ -4,8 +4,7 @@ import com.example.toptracks.base.MVPView;
 
 public interface MainActivityIterator {
     interface MainView extends MVPView {
-        void onFetchSuccess(String msg);
-
+        void onFetchSuccess();
         void onFailed(String msg);
     }
 
