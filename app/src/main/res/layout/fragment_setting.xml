@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".Fragment.setting.FragmentSetting">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:background="@drawable/custom_profile"
         android:layout_marginTop="@dimen/dimen_50dp"
         android:layout_gravity="center"
@@ -14,7 +14,7 @@
         android:layout_width="@dimen/dimen_160dp"
         android:layout_height="@dimen/dimen_160dp"
         android:src="@drawable/ic_baseline_person_24">
-    </de.hdodenhof.circleimageview.CircleImageView>
+    </ImageView>
     <Button
         android:layout_marginTop="@dimen/dimen_50dp"
         android:layout_gravity="center_horizontal"

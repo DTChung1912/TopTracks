@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.toptracks.R;
 import com.example.toptracks.View.CameraAcitivity;
 import com.example.toptracks.View.MainActivity;
@@ -51,11 +53,11 @@ public class FragmentSetting extends Fragment implements SettingIterator.Setting
             dataPicture = bundle.getByteArray("pictureData");
             if (dataPicture != null) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(dataPicture, 0, dataPicture.length);
-                profileImage.setImageBitmap(bitmap);
+                Glide.with(getContext()).load(bitmap).transform(new CircleCrop()).into(profileImage);
             } else {
                 imageUri = bundle.getString("pictureData");
                 uri = Uri.parse(imageUri);
-                profileImage.setImageURI(uri);
+                Glide.with(getContext()).load(uri).transform(new CircleCrop()).into(profileImage);
             }
         }
 

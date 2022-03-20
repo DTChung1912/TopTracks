@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.toptracks.Fragment.freetracks.FragmentFree;
 import com.example.toptracks.Fragment.purchasestracks.FragmentPurchases;
 import com.example.toptracks.Fragment.setting.FragmentSetting;
@@ -113,12 +115,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
         byte[] dataProfile = intent.getByteArrayExtra("imageData");
         if (dataProfile != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(dataProfile, 0, dataProfile.length);
-            profileImage.setImageBitmap(bitmap);
+//            profileImage.setImageBitmap(bitmap);
+            Glide.with(this).load(bitmap).transform(new CircleCrop()).into(profileImage);
         } else {
             String imagePathProfile = getIntent().getStringExtra("imageData");
             if (imagePathProfile != null) {
-                Uri uri = Uri.parse(imagePathProfile);
-                profileImage.setImageURI(uri);
+                uri = Uri.parse(imagePathProfile);
+//                profileImage.setImageURI(uri);
+                Glide.with(this).load(uri).transform(new CircleCrop()).into(profileImage);
             }
         }
     }
