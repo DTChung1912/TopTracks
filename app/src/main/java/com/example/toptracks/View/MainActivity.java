@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -29,6 +30,8 @@ import com.example.toptracks.Fragment.setting.FragmentSetting;
 import com.example.toptracks.Fragment.toptracks.FragmentTopTracks;
 import com.example.toptracks.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements MainActivityIterator.MainView {
     private EditText searchMusic;
@@ -115,14 +118,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
         byte[] dataProfile = intent.getByteArrayExtra("imageData");
         if (dataProfile != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(dataProfile, 0, dataProfile.length);
-//            profileImage.setImageBitmap(bitmap);
-            Glide.with(this).load(bitmap).transform(new CircleCrop()).into(profileImage);
+            ImageUtils.loadImage(profileImage, bitmap);
         } else {
             String imagePathProfile = getIntent().getStringExtra("imageData");
             if (imagePathProfile != null) {
                 uri = Uri.parse(imagePathProfile);
-//                profileImage.setImageURI(uri);
-                Glide.with(this).load(uri).transform(new CircleCrop()).into(profileImage);
+                try {
+                    Bitmap bitmapUri = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                    ImageUtils.loadImage(profileImage, bitmapUri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
