@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.toptracks.Model.Music;
 import com.example.toptracks.R;
 
@@ -48,7 +49,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicViewHolder> {
             holder.singerName.setText(music.getSingerName());
             holder.songRank.setText("Rank: " + music.getSongRank());
             holder.listener.setText(music.getListener());
-            Glide.with(myContext).load(music.getMusicImage()).into(holder.musicImage);
+            Glide.with(myContext).load(music.getMusicImage()).transform(new CircleCrop()).into(holder.musicImage);
             holder.musicImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
