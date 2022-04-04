@@ -2,12 +2,6 @@ package com.example.toptracks.View;
 
 import static com.example.toptracks.Model.Constants.KEY_CURRENT_USER;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,18 +16,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.toptracks.Fragment.freetracks.FragmentFree;
 import com.example.toptracks.Fragment.purchasestracks.FragmentPurchases;
 import com.example.toptracks.Fragment.setting.FragmentSetting;
+import com.example.toptracks.Fragment.setting.ImageToMainActivity;
 import com.example.toptracks.Fragment.toptracks.FragmentTopTracks;
 import com.example.toptracks.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements MainActivityIterator.MainView {
+public class MainActivity extends AppCompatActivity implements MainActivityIterator.MainView, ImageToMainActivity {
     private EditText searchMusic;
     private TextView currentUser;
     private ImageView profileImage;
@@ -83,54 +84,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
                         loadFragment(fragment);
                         return true;
                     case R.id.navigation_setting:
-                        fragment = new FragmentSetting();
+                        fragment = new FragmentSetting(MainActivity.this);
                         loadFragment(fragment);
                         return true;
                 }
                 return false;
             }
         });
-
-        Intent intent = getIntent();
-
-        byte[] dataPicture = intent.getByteArrayExtra("cameraPicture");
-        if (dataPicture != null) {
-            bottomNavigationView.setSelectedItemId(R.id.navigation_setting);
-            FragmentSetting fragmentSetting = new FragmentSetting();
-            Bundle bundle = new Bundle();
-            bundle.putByteArray("pictureData", dataPicture);
-            fragmentSetting.setArguments(bundle);
-            loadFragment(fragmentSetting);
-        } else {
-            imagePath = getIntent().getStringExtra("chooserPicture");
-            if (imagePath != null) {
-                bottomNavigationView.setSelectedItemId(R.id.navigation_setting);
-                FragmentSetting fragmentSetting = new FragmentSetting();
-                Bundle bundle = new Bundle();
-                bundle.putString("pictureData", imagePath);
-                fragmentSetting.setArguments(bundle);
-                loadFragment(fragmentSetting);
-            } else {
-                loadFragment(new FragmentTopTracks());
-            }
-        }
-
-        byte[] dataProfile = intent.getByteArrayExtra("imageData");
-        if (dataProfile != null) {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(dataProfile, 0, dataProfile.length);
-            ImageUtils.loadImage(profileImage, bitmap);
-        } else {
-            String imagePathProfile = getIntent().getStringExtra("imageData");
-            if (imagePathProfile != null) {
-                uri = Uri.parse(imagePathProfile);
-                try {
-                    Bitmap bitmapUri = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                    ImageUtils.loadImage(profileImage, bitmapUri);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     @Override
@@ -172,5 +132,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityItera
         transaction.replace(R.id.main_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void getImage(Bitmap imageBitmap) {
+        if (imageBitmap != null){
+            ImageUtils.loadImage(profileImage, imageBitmap);
+        }
     }
 }
